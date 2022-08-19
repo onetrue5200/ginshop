@@ -6,7 +6,9 @@ import (
 	"github.com/mojocn/base64Captcha"
 )
 
-var store = base64Captcha.DefaultMemStore
+// var store = base64Captcha.DefaultMemStore
+
+var store base64Captcha.Store = RedisStore{}
 
 func MakeCaptcha() (string, string, error) {
 	var driver base64Captcha.Driver

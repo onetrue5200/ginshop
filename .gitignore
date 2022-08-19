@@ -1,2 +1,4 @@
 tmp/
 .*
+go.mod
+go.sum
