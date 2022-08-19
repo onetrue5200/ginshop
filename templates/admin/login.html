@@ -1,0 +1,57 @@
+{{define "admin/login.html"}}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/thirdparty/bootstrap/css/bootstrap.min.css">
+    <link rel="stylesheet" href="/static/css/admin/login.css">
+    <link href="signin.css" rel="stylesheet">
+    <script src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+    <script src="/static/js/admin/jquery-1.10.1.js"></script>
+    <script src="/static/js/admin/login.js"></script>
+    <title>admin login</title>
+    <style>
+        .bd-placeholder-img {
+          font-size: 1.125rem;
+          text-anchor: middle;
+          -webkit-user-select: none;
+          -moz-user-select: none;
+          user-select: none;
+        }
+  
+        @media (min-width: 768px) {
+          .bd-placeholder-img-lg {
+            font-size: 3.5rem;
+          }
+        }        
+        #captcha-img{
+        cursor: pointer;
+        }
+      </style>
+</head>
+<body class="text-center">
+    <main class="form-signin">
+        <form action="/admin/doLogin" method="post">
+            <input type="hidden" name="captcha-id" id="captcha-id"> 
+            <h1 class="h3 mb-3 fw-normal">Sign In</h1>     
+            <div class="form-floating">
+                <input type="text" class="form-control" id="floatingInput" placeholder="name@example.com">
+                <label for="floatingInput">Admin Name</label>
+            </div>
+            <div class="form-floating">
+                <input type="password" class="form-control" id="floatingPassword" placeholder="Password">
+                <label for="floatingPassword">Password</label>
+            </div>
+            <div class="form-floating">
+                <input type="text" name="verify-code" class="form-control" id="floatingCode" placeholder="Verify Code">
+                <label for="floatingCode">Verify Code</label>
+                <img id="captcha-img" src="" title="看不清？点击刷新">
+            </div>
+            <button class="w-100 btn btn-lg btn-primary" type="submit">Sign in</button>
+            </form>
+      </main>
+</body>
+</html>
+{{end}}
