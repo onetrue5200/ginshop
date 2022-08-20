@@ -9,6 +9,7 @@ import (
 )
 
 type LoginController struct {
+	BaseController
 }
 
 func (ctl LoginController) Index(c *gin.Context) {
@@ -29,9 +30,9 @@ func (ctl LoginController) Captcha(c *gin.Context) {
 func (ctl LoginController) DoLogin(c *gin.Context) {
 	captchaId := c.PostForm("captcha-id")
 	verifyCode := c.PostForm("verify-code")
-	if flag := models.VerifyCaptcha(captchaId, verifyCode); flag == true {
-		c.String(http.StatusOK, "success")
+	if flag := models.VerifyCaptcha(captchaId, verifyCode); flag {
+		ctl.success(c, "success", "/admin")
 	} else {
-		c.String(http.StatusOK, "fail")
+		ctl.error(c, "fail", "/admin/login")
 	}
 }
