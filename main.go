@@ -3,6 +3,8 @@ package main
 import (
 	"ginshop/routers"
 
+	"github.com/gin-contrib/sessions"
+	"github.com/gin-contrib/sessions/cookie"
 	"github.com/gin-gonic/gin"
 )
 
@@ -12,6 +14,10 @@ func main() {
 	r.LoadHTMLGlob("templates/**/*")
 
 	r.Static("/static", "./static")
+
+	store := cookie.NewStore([]byte("secret123456"))
+
+	r.Use(sessions.Sessions("mysession", store))
 
 	routers.AdminRouters(r)
 

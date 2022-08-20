@@ -17,7 +17,7 @@ func MakeCaptcha() (string, string, error) {
 		Width:           100,
 		NoiseCount:      0,
 		ShowLineOptions: 2 | 4,
-		Length:          4,
+		Length:          1,
 		Source:          "123456789qwertyuioplkjhgfdsazxcvbnm",
 		BgColor: &color.RGBA{
 			R: 3,
