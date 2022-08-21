@@ -1,8 +1,8 @@
 $(function(){
-    app.init();
+    LoginApp.init();
 })
 
-var app={
+var LoginApp={
     init: function(){
         this.getCaptcha()
         this.imageChange()

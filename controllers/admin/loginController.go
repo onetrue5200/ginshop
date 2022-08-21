@@ -44,12 +44,12 @@ func (ctl LoginController) DoLogin(c *gin.Context) {
 			userinfoSlice, _ := json.Marshal(userinfo)
 			session.Set("userinfo", string(userinfoSlice))
 			session.Save()
-			ctl.success(c, "login successfully", "/admin")
+			ctl.Success(c, "login successfully", "/admin")
 		} else {
-			ctl.error(c, "wrong username or password", "/admin/login")
+			ctl.Error(c, "wrong username or password", "/admin/login")
 		}
 	} else {
-		ctl.error(c, "verify code unmatch", "/admin/login")
+		ctl.Error(c, "verify code unmatch", "/admin/login")
 	}
 }
 
@@ -57,5 +57,5 @@ func (ctl LoginController) DoLogout(c *gin.Context) {
 	session := sessions.Default(c)
 	session.Delete("userinfo")
 	session.Save()
-	ctl.success(c, "logout", "/admin/login")
+	ctl.Success(c, "logout", "/admin/login")
 }
