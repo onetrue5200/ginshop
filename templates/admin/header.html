@@ -1,12 +1,12 @@
 {{ define "admin/header.html" }}
 <link rel="stylesheet" href="/static/thirdparty/bootstrap/css/bootstrap.min.css">
 <nav class="py-2 bg-light border-bottom">
-    <div class="container d-flex flex-wrap">
-      <ul class="nav me-auto"></ul>
-      <ul class="nav">
-        <li class="nav-item"><a href="#" class="nav-link link-dark px-2">Login</a></li>
-        <li class="nav-item"><a href="/admin/doLogout" class="nav-link link-dark px-2">Logout</a></li>
-      </ul>
-    </div>
-  </nav>
+  <div class="container d-flex flex-wrap">
+    <ul class="nav me-auto"></ul>
+    <ul class="nav">
+      <li class="nav-item"><a href="/admin" class="nav-link link-dark px-2">Welcome {{.username}}</a></li>
+      <li class="nav-item"><a href="/admin/doLogout" class="nav-link link-dark px-2">Logout</a></li>
+    </ul>
+  </div>
+</nav>
 {{end}}
