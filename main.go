@@ -1,7 +1,9 @@
 package main
 
 import (
+	"ginshop/models"
 	"ginshop/routers"
+	"text/template"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-contrib/sessions/cookie"
@@ -10,6 +12,10 @@ import (
 
 func main() {
 	r := gin.Default()
+
+	r.SetFuncMap(template.FuncMap{
+		"UnixToTime": models.UnixToTime,
+	})
 
 	r.LoadHTMLGlob("templates/**/*")
 
