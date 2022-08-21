@@ -73,3 +73,46 @@ func (ctl RoleController) Delete(c *gin.Context) {
 	models.DB.Delete(&role)
 	ctl.Success(c, "删除数据成功", "/admin/role")
 }
+
+func (ctl RoleController) Auth(c *gin.Context) {
+	roleId, _ := strconv.Atoi(c.Query("id"))
+	accessList := []models.Access{}
+	models.DB.Where("module_id=?", 0).Preload("AccessItem").Find(&accessList)
+	roleAccess := []models.RoleAccess{}
+	models.DB.Where("role_id=?", roleId).Find(&roleAccess)
+	roleAccessMap := make(map[int]int, len(roleAccess))
+	for _, v := range roleAccess {
+		roleAccessMap[v.AccessId] = roleId
+	}
+	for i := 0; i < len(accessList); i++ {
+		if _, ok := roleAccessMap[accessList[i].Id]; ok {
+			accessList[i].Checked = true
+		}
+		for j := 0; j < len(accessList[i].AccessItem); j++ {
+			if _, ok := roleAccessMap[accessList[i].AccessItem[j].Id]; ok {
+				accessList[i].AccessItem[j].Checked = true
+			}
+		}
+	}
+	c.HTML(http.StatusOK, "admin/roleAuth.html", gin.H{
+		"roleId":     roleId,
+		"accessList": accessList,
+	})
+}
+
+func (ctl RoleController) DoAuth(c *gin.Context) {
+	roleId, _ := strconv.Atoi(c.PostForm("roleId"))
+	accessIds := c.PostFormArray("access_node[]")
+
+	roleAccess := models.RoleAccess{}
+
+	models.DB.Where("role_id=?", roleId).Delete(&roleAccess)
+
+	for _, v := range accessIds {
+		roleAccess.RoleId = roleId
+		roleAccess.AccessId, _ = strconv.Atoi(v)
+		models.DB.Create(&roleAccess)
+	}
+
+	ctl.Success(c, "修改数据成功", "/admin/role")
+}

@@ -12,6 +12,7 @@ type Access struct {
 	Status      int
 	AddTime     int
 	AccessItem  []Access `gorm:"foreignKey:ModuleId"`
+	Checked     bool     `gorm:"-"` // 数据库忽略这个字段
 }
 
 func (Access) TableName() string {
