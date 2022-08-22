@@ -7,6 +7,7 @@ import (
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
+	"gorm.io/gorm"
 )
 
 type MainController struct{}
@@ -22,7 +23,9 @@ func (con MainController) Index(c *gin.Context) {
 		roleId := userinfoStruct[0].RoleId
 
 		accessList := []models.Access{}
-		models.DB.Where("module_id=?", 0).Preload("AccessItem").Find(&accessList)
+		models.DB.Where("module_id=?", 0).Preload("AccessItem", func(db *gorm.DB) *gorm.DB {
+			return db.Order("access.sort DESC")
+		}).Order("sort DESC").Find(&accessList)
 		roleAccess := []models.RoleAccess{}
 		models.DB.Where("role_id=?", roleId).Find(&roleAccess)
 		roleAccessMap := make(map[int]int, len(roleAccess))

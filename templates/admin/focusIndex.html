@@ -39,14 +39,16 @@
                 </td>
                 <td align="center">
                     {{if eq $value.Status 1}}
-                    <img src="/static/images/admin/focus/yes.gif" />
+                    <img class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status"
+                        src="/static/images/admin/focus/yes.gif" />
                     {{else}}
-                    <img src="/static/images/admin/focus/no.gif" />
+                    <img class="chStatus" data-id="{{$value.Id}}" data-table="focus" data-field="status"
+                        src="/static/images/admin/focus/no.gif" />
                     {{end}}
                 </td>
                 <td class="text-center">
-                    <a href="/admin/focus/edit?id={{$value.Id}}" />修改</a>
-                    <a class="delete" href="/admin/focus/delete?id={{$value.Id}}" />删除</a>
+                    <a href="/admin/focus/edit?id={{$value.Id}}">修改</a>
+                    <a class="delete" href="/admin/focus/delete?id={{$value.Id}}">删除</a>
                 </td>
             </tr>
             {{end}}
