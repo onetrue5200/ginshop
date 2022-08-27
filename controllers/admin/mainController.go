@@ -4,6 +4,7 @@ import (
 	"encoding/json"
 	"ginshop/models"
 	"net/http"
+	"strconv"
 
 	"github.com/gin-contrib/sessions"
 	"github.com/gin-gonic/gin"
@@ -55,4 +56,21 @@ func (con MainController) Index(c *gin.Context) {
 
 func (con MainController) Welcome(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin/welcome.html", nil)
+}
+
+func (con MainController) ChangeStatus(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Query("id"))
+	table := c.Query("table")
+	field := c.Query("field")
+	err := models.DB.Exec("update "+table+" set "+field+" = 1 - "+field+" where id = ?", id).Error
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "修改失败，请重试",
+		})
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "修改数据成功",
+	})
 }

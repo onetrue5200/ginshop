@@ -1,6 +1,10 @@
 {{ define "admin/focus.html" }}
 <script type="module" src="/static/js/admin/jquery-1.10.1.js"></script>
 <script type="module" src="/static/js/admin/role.js"></script>
+<script type="module">
+    import { main } from "/static/js/admin/main.js";
+    main();
+</script>
 <div class="table-responsive">
     <table class="table table-bordered">
         <thead>
