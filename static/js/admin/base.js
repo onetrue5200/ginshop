@@ -1,6 +1,4 @@
-$(function(){
-    baseApp.init();
-})
+baseApp.init();
 
 var baseApp={
     init: function(){

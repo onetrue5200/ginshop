@@ -1,5 +1,12 @@
 export function main() {
+    initAside();
     changeStatus();
+}
+
+function initAside(){
+    $(".aside h4").click(function(){		
+        $(this).siblings('ul').slideToggle();
+    });
 }
 
 function changeStatus() {
