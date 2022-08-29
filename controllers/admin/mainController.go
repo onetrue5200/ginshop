@@ -74,3 +74,21 @@ func (con MainController) ChangeStatus(c *gin.Context) {
 		"message": "修改数据成功",
 	})
 }
+
+func (con MainController) ChangeNum(c *gin.Context) {
+	id, _ := strconv.Atoi(c.Query("id"))
+	table := c.Query("table")
+	field := c.Query("field")
+	num := c.Query("num")
+	err := models.DB.Exec("update "+table+" set "+field+" = "+num+" where id = ?", id).Error
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"success": false,
+			"message": "修改失败，请重试",
+		})
+	}
+	c.JSON(http.StatusOK, gin.H{
+		"success": true,
+		"message": "修改数据成功",
+	})
+}
