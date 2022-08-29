@@ -55,9 +55,9 @@ func (ctl AccessController) DoAdd(c *gin.Context) {
 
 	err := models.DB.Create(&access).Error
 	if err != nil {
-		ctl.Error(c, "增加数据失败", "admin/access/add")
+		ctl.Error(c, "增加数据失败", "/admin/access/add")
 	} else {
-		ctl.Success(c, "增加数据成功", "admin/access")
+		ctl.Success(c, "修改数据成功", "/admin/access")
 	}
 }
 
