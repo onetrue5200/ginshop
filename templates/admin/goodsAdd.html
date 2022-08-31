@@ -14,6 +14,13 @@
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+
+    <script type="module" src="/static/js/admin/jquery-1.10.1.js"></script>
+    <script type="module" src="/static/js/admin/role.js"></script>
+    <script type="module">
+        import { main } from "/static/js/admin/main.js";
+        main();
+    </script>
     <title>Goods</title>
 </head>
 
@@ -68,7 +75,12 @@
                                         <li> <span>所属分类:</span>
 
                                             <select name="cid" id="cid">
-
+                                                {{range $key, $value := .goodsCateList}}
+                                                <option value="{{$value.Id}}">{{$value.Title}}</option>
+                                                {{range $k, $v := $value.GoodsCateItems}}
+                                                <option value="{{$v.Id}}"> ----{{$v.Title}}</option>
+                                                {{end}}
+                                                {{end}}
                                             </select>
                                         </li>
                                         <li> <span> 商品图片:</span> <input type="file" name="pic" /></li>
@@ -98,8 +110,11 @@
                                     <ul class="form_input">
 
                                         <li> <span>商品颜色:</span>
-
-
+                                            {{range $key, $value := .goodsColorList}}
+                                            <input type="checkbox" value="{{$value.Id}}" name="goods_color"
+                                                id="color_{{$value.Id}}" />
+                                            <label for="color_{{$value.Id}}">{{$value.ColorName}}</label>
+                                            {{end}}
                                         </li>
 
                                         <li> <span>关联商品:</span>
@@ -145,6 +160,9 @@
                                         <li> <span>商品类型:</span>
                                             <select name="goods_type_id" id="goods_type_id">
                                                 <option value="0">--请选择商品类型--</option>
+                                                {{range $key, $value := .goodsTypeList}}
+                                                <option value="{{$value.Id}}">{{$value.Title}}</option>
+                                                {{end}}
                                             </select>
 
                                         </li>

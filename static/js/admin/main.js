@@ -2,6 +2,7 @@ export function main() {
     initAside();
     changeStatus();
     changeNum();
+    changeGoodsCate();
 }
 
 function initAside(){
@@ -60,4 +61,34 @@ function changeNum() {
             })  
         })
     })
+}
+
+function changeGoodsCate() {
+    $("#goods_type_id").change(function(){
+        var cateId = $(this).val();
+        $.get("/admin/goods/goodsTypeAttribute", {"cateId": cateId}, function(resp){
+            console.log(resp);
+            var str = "";
+            if (resp.success) {
+                var attrData = resp.result;
+                for (var i = 0; i < attrData.length; i++) {
+                    if (attrData[i].attr_type == 1) {
+                        str += '<li><span>' + attrData[i].title + ': </span><input type="hidden" name="attr_id_list" value="'+ attrData[i].id +'" /><input type="text" name="attr_value_list" /></li>'
+                    } else if (attrData[i].attr_type == 2) {
+                        str += '<li><span>' + attrData[i].title + ': </span><input type="hidden" name="attr_id_list" value="' + attrData[i].id + '"><textarea cols="50" rows="3" name="attr_value_list"></textarea></li>'
+                    } else {
+                        var attrArray = attrData[i].attr_value.split("\n")
+                        str += '<li><span>' + attrData[i].title + ': </span>  <input type="hidden" name="attr_id_list" value="' + attrData[i].id + '" />';
+                        str += '<select name="attr_value_list">'
+                        for (var j = 0; j < attrArray.length; j++) {
+                            str += '<option value="' + attrArray[j] + '">' + attrArray[j] + '</option>';
+                        }
+                        str += '</select>'
+                        str += '</li>'
+                    }
+                }
+                $("#goods_type_attribute").html(str);
+            }
+        })
+    });
 }
