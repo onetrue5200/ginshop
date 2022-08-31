@@ -18,6 +18,11 @@ func GetUnix() int64 {
 	return time.Now().Unix()
 }
 
+// 获取时间戳(纳秒)
+func GetUnixNano() int64 {
+	return time.Now().UnixNano()
+}
+
 // 时间戳转换成日期
 func UnixToTime(timestamp int) string {
 	t := time.Unix(int64(timestamp), 0)
@@ -60,7 +65,7 @@ func UploadImg(c *gin.Context, picName string) (string, error) {
 		return "", err
 	}
 
-	fileName := strconv.FormatInt(GetUnix(), 10) + extName
+	fileName := strconv.FormatInt(GetUnixNano(), 10) + extName
 
 	dst := path.Join(dir, fileName)
 	c.SaveUploadedFile(file, dst)

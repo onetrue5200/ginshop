@@ -10,17 +10,22 @@
     <!-- Include Editor style. -->
     <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
         type="text/css" />
+    <script type="text/javascript" src="/static/js/admin/jquery-1.10.1.js"></script>
     <!-- Include Editor JS files. -->
     <script type="text/javascript"
         src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
 
-    <script type="module" src="/static/js/admin/jquery-1.10.1.js"></script>
-    <script type="module" src="/static/js/admin/role.js"></script>
+    <link rel="stylesheet" type="text/css" href="/static/diyUpload/css/webuploader.css">
+    <link rel="stylesheet" type="text/css" href="/static/diyUpload/css/diyUpload.css">
+    <script type="text/javascript" src="/static/diyUpload/js/webuploader.html5only.min.js"></script>
+    <script type="text/javascript" src="/static/diyUpload/js/diyUpload.js"></script>
+
     <script type="module">
         import { main } from "/static/js/admin/main.js";
         main();
     </script>
+
     <title>Goods</title>
 </head>
 
@@ -176,8 +181,7 @@
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="photo">
-
-                                    商品相册
+                                    <div id="photoUploader"></div>
                                 </div>
                             </div>
 
@@ -192,12 +196,14 @@
     </div>
 </body>
 <!-- Initialize the editor. -->
-<script>
+<script type="text/javascript">
     new FroalaEditor('#content', {
         height: 300,
         imageUploadURL: '/admin/goods/imageUpload',
     });
 </script>
+
+<script type="text/javascript" src="/static/js/admin/role.js"></script>
 
 </html>
 {{end}}
