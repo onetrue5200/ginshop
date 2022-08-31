@@ -71,5 +71,7 @@ func AdminRouters(r *gin.Engine) {
 		adminRouters.POST("/goodsTypeAttribute/doEdit", admin.GoodsTypeAttributeController{}.DoEdit)
 		adminRouters.GET("/goodsTypeAttribute/delete", admin.GoodsTypeAttributeController{}.Delete)
 
+		adminRouters.GET("/goods", admin.GoodsController{}.Index)
+		adminRouters.GET("/goods/add", admin.GoodsController{}.Add)
 	}
 }

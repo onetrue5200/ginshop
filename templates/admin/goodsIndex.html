@@ -1,0 +1,36 @@
+{{ define "admin/goods.html" }}
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/thirdparty/bootstrap/css/bootstrap.min.css">
+    <script type="module" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+    <title>Goods</title>
+</head>
+
+<body>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="card">
+                <div class="card-header">
+                    <a href="/admin/goods/add" class="btn btn-primary">增加商品</a>
+                </div>
+                <!--
+                    列表展示
+                -->
+                <div class="card-body">
+                    <div class="table-responsive">
+                        商品列表页面
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+
+</html>
+
+{{end}}
