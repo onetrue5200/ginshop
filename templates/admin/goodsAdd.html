@@ -7,6 +7,12 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/thirdparty/bootstrap/css/bootstrap.min.css">
+    <!-- Include Editor style. -->
+    <link href="https://cdn.jsdelivr.net/npm/froala-editor@latest/css/froala_editor.pkgd.min.css" rel="stylesheet"
+        type="text/css" />
+    <!-- Include Editor JS files. -->
+    <script type="text/javascript"
+        src="https://cdn.jsdelivr.net/npm/froala-editor@latest/js/froala_editor.pkgd.min.js"></script>
     <script type="text/javascript" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
     <title>Goods</title>
 </head>
@@ -167,6 +173,13 @@
         </div>
     </div>
 </body>
+<!-- Initialize the editor. -->
+<script>
+    new FroalaEditor('#content', {
+        height: 300,
+        imageUploadURL: '/admin/goods/imageUpload',
+    });
+</script>
 
 </html>
 {{end}}

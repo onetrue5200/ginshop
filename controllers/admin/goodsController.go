@@ -1,6 +1,7 @@
 package admin
 
 import (
+	"ginshop/models"
 	"net/http"
 
 	"github.com/gin-gonic/gin"
@@ -16,4 +17,17 @@ func (con GoodsController) Index(c *gin.Context) {
 
 func (con GoodsController) Add(c *gin.Context) {
 	c.HTML(http.StatusOK, "admin/goodsAdd.html", nil)
+}
+
+func (con GoodsController) ImageUpload(c *gin.Context) {
+	imgDir, err := models.UploadImg(c, "file")
+	if err != nil {
+		c.JSON(http.StatusOK, gin.H{
+			"link": "",
+		})
+	} else {
+		c.JSON(http.StatusOK, gin.H{
+			"link": "/" + imgDir,
+		})
+	}
 }
