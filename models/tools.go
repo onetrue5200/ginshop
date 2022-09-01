@@ -4,6 +4,7 @@ import (
 	"crypto/md5"
 	"errors"
 	"fmt"
+	"html/template"
 	"io"
 	"os"
 	"path"
@@ -70,4 +71,9 @@ func UploadImg(c *gin.Context, picName string) (string, error) {
 	dst := path.Join(dir, fileName)
 	c.SaveUploadedFile(file, dst)
 	return dst, nil
+}
+
+// string to html
+func Str2Html(str string) template.HTML {
+	return template.HTML(str)
 }

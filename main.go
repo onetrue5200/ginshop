@@ -15,6 +15,7 @@ func main() {
 
 	r.SetFuncMap(template.FuncMap{
 		"UnixToTime": models.UnixToTime,
+		"Str2Html":   models.Str2Html,
 	})
 
 	r.LoadHTMLGlob("templates/**/*")
