@@ -79,7 +79,7 @@
                                         </li>
                                         <li> <span>所属分类:</span>
 
-                                            <select name="cid" id="cid">
+                                            <select name="cate-id" id="cid">
                                                 {{range $key, $value := .goodsCateList}}
                                                 <option value="{{$value.Id}}">{{$value.Title}}</option>
                                                 {{range $k, $v := $value.GoodsCateItems}}
@@ -88,7 +88,7 @@
                                                 {{end}}
                                             </select>
                                         </li>
-                                        <li> <span> 商品图片:</span> <input type="file" name="pic" /></li>
+                                        <li> <span> 商品图片:</span> <input type="file" name="goods_img" /></li>
                                         <li> <span>商品价格:</span> <input type="text" name="price" /></li>
                                         <li> <span>商品原价:</span> <input type="text" name="market_price" /></li>
 
@@ -107,7 +107,7 @@
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="detail">
 
-                                    <textarea name="content" id="content" cols="100" rows="8"></textarea>
+                                    <textarea name="goods_content" id="content" cols="100" rows="8"></textarea>
 
                                 </div>
                                 <div role="tabpanel" class="tab-pane" id="mix">
@@ -153,8 +153,16 @@
 
                                         </li>
 
+                                        <li> <span>SEO关键词:</span>
 
+                                            <input type="text" name="goods_keywords" />
 
+                                        </li>
+                                        <li> <span>SEO描述:</span>
+
+                                            <textarea name="goods_desc" id="goods_desc" cols="30" rows="10"></textarea>
+
+                                        </li>
 
                                     </ul>
                                 </div>
