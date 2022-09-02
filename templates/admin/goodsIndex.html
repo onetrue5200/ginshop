@@ -7,9 +7,10 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/thirdparty/bootstrap/css/bootstrap.min.css">
-    <script type="module" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
-    <script type="module" src="/static/js/admin/jquery-1.10.1.js"></script>
-    <script type="module" src="/static/js/admin/role.js"></script>
+    <script type="text/javascript" src="/static/thirdparty/bootstrap/js/bootstrap.min.js"></script>
+    <script type="text/javascript" src="/static/js/admin/jquery-1.10.1.js"></script>
+    <script type="text/javascript" src="/static/js/admin/role.js"></script>
+    <script type="text/javascript" src="/static/thirdparty/jqPaginator.js"></script>
     <script type="module">
         import { main } from "/static/js/admin/main.js";
         main();
@@ -113,11 +114,30 @@
                             </tbody>
                         </table>
                     </div>
+                    <nav aria-label="Page navigation example">
+                        <div class="pagination" id="pagination">
+
+                        </div>
+                    </nav>
                 </div>
             </div>
         </div>
     </div>
 </body>
+
+<script>
+    $("#pagination").jqPaginator({
+        totalPages: {{.totalPages }},
+        visiblePages: 5,
+        currentPage: {{.page }},
+        onPageChange: function (num, type) {
+            // console.log(num, type);
+            if (type != "init") {
+                location.href = "/admin/goods?page=" + num;
+            }
+        }
+    });
+</script>
 
 </html>
 

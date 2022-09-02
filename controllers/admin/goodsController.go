@@ -3,6 +3,7 @@ package admin
 import (
 	"fmt"
 	"ginshop/models"
+	"math"
 	"net/http"
 	"os"
 	"strconv"
@@ -19,10 +20,21 @@ type GoodsController struct {
 }
 
 func (con GoodsController) Index(c *gin.Context) {
+	page, _ := strconv.Atoi(c.Query("page"))
+	if page == 0 {
+		page = 1
+	}
+	pageSize := 5
 	goodsList := []models.Goods{}
-	models.DB.Find(&goodsList)
+	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+
+	var count int64
+	models.DB.Table("goods").Count(&count)
+
 	c.HTML(http.StatusOK, "admin/goods.html", gin.H{
-		"goodsList": goodsList,
+		"goodsList":  goodsList,
+		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+		"page":       page,
 	})
 }
 
