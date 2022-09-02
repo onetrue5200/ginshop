@@ -25,17 +25,30 @@ func (con GoodsController) Index(c *gin.Context) {
 		page = 1
 	}
 	pageSize := 5
+	where := "is_delete=0"
 	goodsList := []models.Goods{}
-	models.DB.Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
+	models.DB.Where(where).Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
 
 	var count int64
-	models.DB.Table("goods").Count(&count)
+	models.DB.Where(where).Table("goods").Count(&count)
+	if len(goodsList) > 0 {
+		c.HTML(http.StatusOK, "admin/goods.html", gin.H{
+			"goodsList":  goodsList,
+			"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+			"page":       page,
+		})
+	} else {
+		if page != 1 {
+			c.Redirect(302, "/admin/goods")
+		} else {
+			c.HTML(http.StatusOK, "admin/goods.html", gin.H{
+				"goodsList":  goodsList,
+				"totalPages": math.Ceil(float64(count) / float64(pageSize)),
+				"page":       page,
+			})
+		}
+	}
 
-	c.HTML(http.StatusOK, "admin/goods.html", gin.H{
-		"goodsList":  goodsList,
-		"totalPages": math.Ceil(float64(count) / float64(pageSize)),
-		"page":       page,
-	})
 }
 
 func (con GoodsController) Add(c *gin.Context) {
@@ -456,6 +469,29 @@ func (con GoodsController) RemoveGoodsImage(c *gin.Context) {
 			"result":  "删除成功",
 			"success": true,
 		})
+	}
+
+}
+
+// 删除数据
+func (con GoodsController) Delete(c *gin.Context) {
+	id, err := strconv.Atoi(c.Query("id"))
+	if err != nil {
+		con.Error(c, "传入数据错误", "/admin/goods")
+	} else {
+		goods := models.Goods{Id: id}
+		models.DB.Find(&goods)
+		goods.IsDelete = 1
+		goods.Status = 0
+		models.DB.Save(&goods)
+		//获取上一页
+		prevPage := c.Request.Referer()
+		if len(prevPage) > 0 {
+			con.Success(c, "删除数据成功", prevPage)
+		} else {
+			con.Success(c, "删除数据成功", "/admin/goods")
+		}
+
 	}
 
 }
