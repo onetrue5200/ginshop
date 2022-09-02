@@ -20,12 +20,16 @@ type GoodsController struct {
 }
 
 func (con GoodsController) Index(c *gin.Context) {
+	keyword := c.Query("keyword")
 	page, _ := strconv.Atoi(c.Query("page"))
 	if page == 0 {
 		page = 1
 	}
 	pageSize := 5
 	where := "is_delete=0"
+	if len(keyword) > 0 {
+		where += " And title like \"%" + keyword + "%\""
+	}
 	goodsList := []models.Goods{}
 	models.DB.Where(where).Offset((page - 1) * pageSize).Limit(pageSize).Find(&goodsList)
 
@@ -36,6 +40,7 @@ func (con GoodsController) Index(c *gin.Context) {
 			"goodsList":  goodsList,
 			"totalPages": math.Ceil(float64(count) / float64(pageSize)),
 			"page":       page,
+			"keyword":    keyword,
 		})
 	} else {
 		if page != 1 {
@@ -45,6 +50,7 @@ func (con GoodsController) Index(c *gin.Context) {
 				"goodsList":  goodsList,
 				"totalPages": math.Ceil(float64(count) / float64(pageSize)),
 				"page":       page,
+				"keyword":    keyword,
 			})
 		}
 	}
