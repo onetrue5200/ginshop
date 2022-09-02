@@ -13,3 +13,23 @@ $('#photoUploader').diyUpload({
         console.info(err);
     }
 });
+
+$('.relation_goods_color').change(function(){
+    var goods_image_id=$(this).attr("goods_image_id");
+    var color_id=$(this).val();
+    $.get("/admin/goods/changeGoodsImageColor",{"goods_image_id":goods_image_id,"color_id":color_id},function(response){
+    });
+})
+
+$(".goods_image_delete").click(function(){
+    var goods_image_id=$(this).attr("goods_image_id")   
+    var _that=this;         
+    var flag = confirm("确定要删除吗?");
+    if (flag){
+        $.get("/admin/goods/removeGoodsImage",{"goods_image_id":goods_image_id},function(response){
+            if(response.success){
+                $(_that).parent().remove()
+            }
+        })
+    }
+})
