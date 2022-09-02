@@ -269,6 +269,8 @@ func (con GoodsController) Edit(c *gin.Context) {
 		}
 	}
 
+	// 获取上一页的地址
+
 	c.HTML(http.StatusOK, "admin/goodsEdit.html", gin.H{
 		"goods":          goods,
 		"goodsCateList":  goodsCateList,
@@ -276,6 +278,7 @@ func (con GoodsController) Edit(c *gin.Context) {
 		"goodsTypeList":  goodsTypeList,
 		"goodsAttrStr":   goodsAttrStr,
 		"goodsImageList": goodsImageList,
+		"prevPage":       c.Request.Referer(),
 	})
 }
 
@@ -286,6 +289,9 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 	if err1 != nil {
 		con.Error(c, "传入参数错误", "/admin/goods")
 	}
+	// 获取上一页的地址
+	prevPage := c.PostForm("prevPage")
+
 	title := c.PostForm("title")
 	subTitle := c.PostForm("sub_title")
 	goodsSn := c.PostForm("goods_sn")
@@ -402,7 +408,11 @@ func (con GoodsController) DoEdit(c *gin.Context) {
 		wg.Done()
 	}()
 	wg.Wait()
-	con.Success(c, "修改数据成功", "/admin/goods")
+	if len(prevPage) > 0 {
+		con.Success(c, "修改数据成功", prevPage)
+	} else {
+		con.Success(c, "修改数据成功", "/admin/goods")
+	}
 }
 
 // 修改商品图库关联的颜色
