@@ -39,7 +39,7 @@
                                         <br />
                                         {{if ne .setting.SiteLogo ""}}
                                         <span></span> <img style="width:80px" class="pic"
-                                            src="/{{.setting.SiteLogo}}" />
+                                            src="{{.setting.SiteLogo | FormatImg}}" />
                                         {{end}}
                                     </li>
 
@@ -53,7 +53,7 @@
                                         <br />
                                         {{if ne .setting.NoPicture ""}}
                                         <span></span> <img class="pic" style="width:80px"
-                                            src="/{{.setting.NoPicture}}" />
+                                            src="{{.setting.NoPicture | FormatImg}}" />
                                         {{end}}
                                     </li>
                                     <li> <span>备案信息:</span> <input type="text" class="input" name="site_icp"
@@ -76,10 +76,10 @@
                                 <ul class="form_input">
                                     <li> <span>是否开启Oss: </span>
                                         <input type="radio" name="oss_status" {{if eq .setting.OssStatus 1}} checked
-                                            {{end}} value="1" id="a" /> <label for="a">是</label> 　
+                                            {{end}} value="1" id="a" /> <label for="a">是</label>
 
                                         <input type="radio" name="oss_status" {{if eq .setting.OssStatus 0}} checked
-                                            {{end}} value="0" id="b" /><label for="b">否</label> 　
+                                            {{end}} value="0" id="b" /><label for="b">否</label>
                                     </li>
 
 
